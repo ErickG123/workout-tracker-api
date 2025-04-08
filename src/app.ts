@@ -4,6 +4,7 @@ import fastifyJwt from "@fastify/jwt";
 import cors from "@fastify/cors";
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import { env } from "./env";
+import { categoriesRoutes } from "./http/controllers/categories/categories.routes";
 
 export const app = fastify();
 
@@ -52,3 +53,5 @@ app.register(cors, {
     origin: true,
     credentials: true
 });
+
+app.register(categoriesRoutes);
