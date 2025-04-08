@@ -1,5 +1,4 @@
-import { Category } from "@prisma/client"
-import { CategoriesRepository } from "../../repositories/categories.repository"
+import { CategoriesRepository } from "../../repositories/categories.repository";
 import { CategoryNotFound } from "../errors/category-not-found.error";
 
 interface DeleteCategoryUseCaseRequest {

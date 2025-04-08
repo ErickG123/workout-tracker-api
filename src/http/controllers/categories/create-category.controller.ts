@@ -12,7 +12,7 @@ export async function createCategoryController(request: FastifyRequest, reply: F
     const createCategoryUseCase = makeCreateCategoryUseCase();
 
     try {
-        const category = await createCategoryUseCase.execute(body);
+        const { category } = await createCategoryUseCase.execute(body);
 
         return reply.status(201).send(category);
     } catch (error) {
