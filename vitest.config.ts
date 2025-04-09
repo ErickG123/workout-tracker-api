@@ -6,8 +6,7 @@ export default defineConfig({
         globals: true,
         environment: "node",
         setupFiles: [
-            "./src/tests/setup.ts",
-            "./src/tests/e2e-setup.ts"
+            "./src/tests/setup-e2e.ts"
         ],
     },
 });
