@@ -6,9 +6,9 @@ import { updateCategoryController } from "./update-category.controller";
 import { deleteCategoryController } from "./delete-category.controller";
 
 export function categoriesRoutes(app: FastifyInstance) {
-    app.get("/categories", findAllCategoriesController);
-    app.get("/categories/:id", findCategoryController);
-    app.post("/categories", createCategoryController);
-    app.put("/categories/:id", updateCategoryController);
-    app.delete("/categories/:id", deleteCategoryController);
+    app.get("/categories", { preHandler: [app.authenticate] }, findAllCategoriesController);
+    app.get("/categories/:id", { preHandler: [app.authenticate] }, findCategoryController);
+    app.post("/categories", { preHandler: [app.authenticate] }, createCategoryController);
+    app.put("/categories/:id", { preHandler: [app.authenticate] }, updateCategoryController);
+    app.delete("/categories/:id", { preHandler: [app.authenticate] }, deleteCategoryController);
 }

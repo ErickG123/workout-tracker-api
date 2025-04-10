@@ -6,9 +6,9 @@ import { updateMuscleGroupController } from "./update-muscle-group.controller";
 import { deleteMuscleGroupController } from "./delete-muscle-group.controller";
 
 export function muscleGroupsRoutes(app: FastifyInstance) {
-    app.get("/muscleGroups", findAllMuscleGroupsController);
-    app.get("/muscleGroups/:id", findMuscleGroupController);
-    app.post("/muscleGroups", createMuscleGroupController);
-    app.put("/muscleGroups/:id", updateMuscleGroupController);
-    app.delete("/muscleGroups/:id", deleteMuscleGroupController);
+    app.get("/muscleGroups", { preHandler: [app.authenticate] }, findAllMuscleGroupsController);
+    app.get("/muscleGroups/:id", { preHandler: [app.authenticate] }, findMuscleGroupController);
+    app.post("/muscleGroups", { preHandler: [app.authenticate] }, createMuscleGroupController);
+    app.put("/muscleGroups/:id", { preHandler: [app.authenticate] }, updateMuscleGroupController);
+    app.delete("/muscleGroups/:id", { preHandler: [app.authenticate] }, deleteMuscleGroupController);
 }
