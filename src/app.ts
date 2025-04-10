@@ -6,6 +6,7 @@ import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import { env } from "./env";
 import { categoriesRoutes } from "./http/controllers/categories/categories.routes";
 import { muscleGroupsRoutes } from "./http/controllers/muscle-groups/muscle-groups.routes";
+import { usersRoutes } from "./http/controllers/users/users.routes";
 
 export const app = fastify();
 
@@ -55,5 +56,6 @@ app.register(cors, {
     credentials: true
 });
 
+app.register(usersRoutes);
 app.register(categoriesRoutes);
 app.register(muscleGroupsRoutes);
