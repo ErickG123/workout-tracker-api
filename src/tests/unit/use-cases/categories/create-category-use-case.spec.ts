@@ -18,4 +18,13 @@ describe("Create Category Use Case", () => {
         expect(typeof category.name).toBe("string");
         expect(category.name).toBe(name);
     });
+
+    it("should throw an error if the name is empty string", async () => {
+        const categoriesRepository = new InMemoryCategoriesRepository();
+        const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
+
+        await expect(() => 
+            createCategoryUseCase.execute({ name: "" })
+        ).rejects.toThrow("Category name cannot be an empty string");
+    });
 });

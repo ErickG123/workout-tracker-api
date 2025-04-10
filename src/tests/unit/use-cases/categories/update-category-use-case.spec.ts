@@ -24,4 +24,16 @@ describe("Update Category Use Case", () => {
 
         expect(updatedCategory.name).toBe(newName);
     });
+
+    it("should throw an error if category name is empty string", async () => {
+        const categoriesRepository = new InMemoryCategoriesRepository();
+        const updateCategoryUseName = new UpdateCategoryUseCase(categoriesRepository);
+
+        await expect(() => 
+            updateCategoryUseName.execute(
+                { id: faker.string.uuid() },
+                { name: "" }
+            )
+        ).rejects.toThrow("Category name cannot be an empty string");
+    });
 });

@@ -1,6 +1,7 @@
 import { Category } from "@prisma/client";
 import { CategoriesRepository } from "../../repositories/categories.repository"
 import { CategoryNotFound } from "../errors/category-not-found.error";
+import { validateNonEmptyString } from "../../lib/validators/validate-non-empty-string";
 
 interface UpdateCategoryUseCaseRequestParams {
     id: string
@@ -21,6 +22,8 @@ export class UpdateCategoryUseCase {
         { id }: UpdateCategoryUseCaseRequestParams,
         { name }: UpdateCategoryUseCaseRequest
     ): Promise<UpdateCategoryUseCaseResponse> {
+        validateNonEmptyString(name, "Category name");
+
         const categoryExists = await this.categoriesRepository.findById(id);
 
         if (!categoryExists) throw new CategoryNotFound();

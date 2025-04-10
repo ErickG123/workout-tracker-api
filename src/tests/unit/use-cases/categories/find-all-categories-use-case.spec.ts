@@ -34,8 +34,8 @@ describe("Find All Categories Use Case", () => {
         const categoriesRepository = new InMemoryCategoriesRepository();
         const findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoriesRepository);
 
-        const categories = await findAllCategoriesUseCase.execute();
+        const { categories } = await findAllCategoriesUseCase.execute();
 
-        expect(categories).toEqual({ categories: [] });
+        expect(categories).toEqual([]);
     });
 });
