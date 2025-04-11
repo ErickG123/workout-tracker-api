@@ -1,0 +1,50 @@
+name: workout-tracker-api
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: workout
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: ⬇️ Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21'
+          cache: 'npm'
+
+      - name: 📦 Instalar dependências
+        run: npm ci
+
+      - name: 🌱 Set DATABASE_URL
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/workout" >> $GITHUB_ENV
+
+      - name: 🔧 Rodar migrations do Prisma
+        run: npx prisma migrate deploy
+
+      - name: 🔨 Build do TypeScript
+        run: npm run build
+
+      - name: 🧪 Run tests with coverage
+        run: npm run test:coverage

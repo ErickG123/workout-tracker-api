@@ -8,5 +8,8 @@ export default defineConfig({
         setupFiles: [
             "./src/tests/setup-e2e.ts"
         ],
+        coverage: {
+            provider: "istanbul"
+        }
     },
 });
