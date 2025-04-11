@@ -1,23 +1,27 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryCategoriesRepository } from "../../../../repositories/in-memory/in-memory-categories.repository";
 import { CreateCategoryUseCase } from "../../../../use-cases/categories/create-category.use-case";
 import { UpdateCategoryUseCase } from "../../../../use-cases/categories/update-category.use-case";
+import { createTestCategory } from "../../../utils/create-test.category";
 import { faker } from "@faker-js/faker";
+
+let categoriesRepository: InMemoryCategoriesRepository;
+let createCategoryUseCase: CreateCategoryUseCase;
+let updateCategoryUseCase: UpdateCategoryUseCase;
+
+beforeEach(() => {
+    categoriesRepository = new InMemoryCategoriesRepository();
+    createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
+    updateCategoryUseCase = new UpdateCategoryUseCase(categoriesRepository);
+});
 
 describe("Update Category Use Case", () => {
     it("should update a category name", async () => {
-        const categoriesRepository = new InMemoryCategoriesRepository();
-        const createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository);
-        const updateCategoryUseName = new UpdateCategoryUseCase(categoriesRepository);
-
-        const name = faker.person.fullName();
         const newName = faker.person.fullName();
 
-        const { category } = await createCategoryUseCase.execute({
-            name: name
-        });
+        const { category } = await createTestCategory(createCategoryUseCase);
 
-        const { category: updatedCategory } = await updateCategoryUseName.execute(
+        const { category: updatedCategory } = await updateCategoryUseCase.execute(
             { id: category.id },
             { name: newName }
         )
@@ -26,11 +30,8 @@ describe("Update Category Use Case", () => {
     });
 
     it("should throw an error if category name is empty string", async () => {
-        const categoriesRepository = new InMemoryCategoriesRepository();
-        const updateCategoryUseName = new UpdateCategoryUseCase(categoriesRepository);
-
-        await expect(() => 
-            updateCategoryUseName.execute(
+        await expect(() =>
+            updateCategoryUseCase.execute(
                 { id: faker.string.uuid() },
                 { name: "" }
             )
