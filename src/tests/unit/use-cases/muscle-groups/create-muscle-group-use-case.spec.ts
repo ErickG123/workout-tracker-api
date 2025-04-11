@@ -23,7 +23,7 @@ describe("Create Muscle Group Use Case", () => {
         const muscleGroupsRepository = new InMemoryMuscleGroupsRepository();
         const createMuscleGroupUseCase = new CreateMuscleGroupUseCase(muscleGroupsRepository);
 
-        await expect(() => 
+        await expect(() =>
             createMuscleGroupUseCase.execute({ name: "" })
         ).rejects.toThrow("Muscle group name cannot be an empty string");
     });
