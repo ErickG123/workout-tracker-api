@@ -7,6 +7,7 @@ import { env } from "./env";
 import { categoriesRoutes } from "./http/controllers/categories/categories.routes";
 import { muscleGroupsRoutes } from "./http/controllers/muscle-groups/muscle-groups.routes";
 import { usersRoutes } from "./http/controllers/users/users.routes";
+import { exercisesRoutes } from "./http/controllers/exercises/exercises.routes";
 
 export const app = fastify();
 
@@ -59,3 +60,4 @@ app.register(cors, {
 app.register(usersRoutes);
 app.register(categoriesRoutes);
 app.register(muscleGroupsRoutes);
+app.register(exercisesRoutes);
