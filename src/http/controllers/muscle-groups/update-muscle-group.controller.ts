@@ -20,7 +20,7 @@ export async function updateMuscleGroupController(request: FastifyRequest, reply
     try {
         const { muscleGroup } = await updateMuscleGroupUseCase.execute(params, body);
 
-        return { muscleGroup };
+        return reply.status(200).send(muscleGroup);
     } catch (error) {
         if (error instanceof MuscleGroupNotFound) {
             return reply.status(404).send({ message: error.message });

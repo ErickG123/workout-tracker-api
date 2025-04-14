@@ -8,7 +8,7 @@ export const findAllMuscleGroupsSchema = {
 
 export const findMuscleGroupSchema = {
     description: "Return a specific Muscle Group by ID",
-    tags: ["categories"],
+    tags: ["muscleGroups"],
     params: z.object({
         id: z.string().uuid().describe("Muscle Group ID")
     }),
@@ -24,7 +24,7 @@ export const findMuscleGroupSchema = {
 
 export const createMuscleGroupSchema = {
     description: "Create a new Muscle Group",
-    tags: ["categories"],
+    tags: ["muscleGroups"],
     body: z.object({
         name: z.string().describe("Muscle Group name")
     }),
@@ -40,7 +40,7 @@ export const createMuscleGroupSchema = {
 
 export const updateMuscleGroupSchema = {
     description: "Update an existing Muscle Group",
-    tags: ["categories"],
+    tags: ["muscleGroups"],
     params: z.object({
         id: z.string().uuid().describe("Muscle Group ID")
     }),
@@ -59,7 +59,7 @@ export const updateMuscleGroupSchema = {
 
 export const deleteMuscleGroupSchema = {
     description: "Delete a Muscle Group",
-    tags: ["categories"],
+    tags: ["muscleGroups"],
     params: z.object({
         id: z.string().uuid().describe("Muscle Group ID")
     }),
