@@ -1,13 +1,19 @@
-import { Exercise, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { ExercisesRepository } from "../exercises.repository";
 import { prisma } from "../../lib/prisma";
+import { ExerciseWithRelations } from "../../@types/exercises";
 
 export class PrismaExercisesRepositry implements ExercisesRepository {
-    async findById(id: string): Promise<Exercise | null> {
+    async findById(id: string): Promise<ExerciseWithRelations | null> {
         try {
             const exercise = await prisma.exercise.findUnique({
                 where: {
                     id
+                },
+                include: {
+                    category:  true,
+                    muscleGroup: true,
+                    workoutPlanExercises: true
                 }
             });
 
@@ -18,9 +24,15 @@ export class PrismaExercisesRepositry implements ExercisesRepository {
         }
     }
 
-    async findAll(): Promise<Exercise[] | null> {
+    async findAll(): Promise<ExerciseWithRelations[] | null> {
         try {
-            const exercises = await prisma.exercise.findMany();
+            const exercises = await prisma.exercise.findMany({
+                include: {
+                    category:  true,
+                    muscleGroup: true,
+                    workoutPlanExercises: true
+                }
+            });
 
             return exercises;
         } catch (error) {
@@ -29,10 +41,15 @@ export class PrismaExercisesRepositry implements ExercisesRepository {
         }
     }
 
-    async create(data: Prisma.ExerciseCreateInput): Promise<Exercise> {
+    async create(data: Prisma.ExerciseCreateInput): Promise<ExerciseWithRelations> {
         try {
             const exercise = await prisma.exercise.create({
-                data
+                data,
+                include: {
+                    category:  true,
+                    muscleGroup: true,
+                    workoutPlanExercises: true
+                }
             });
 
             return exercise;
@@ -42,13 +59,18 @@ export class PrismaExercisesRepositry implements ExercisesRepository {
         }
     }
 
-    async update(id: string, data: Prisma.ExerciseUpdateInput): Promise<Exercise> {
+    async update(id: string, data: Prisma.ExerciseUpdateInput): Promise<ExerciseWithRelations> {
         try {
             const exercise = await prisma.exercise.update({
                 where: {
                     id
                 },
-                data
+                data,
+                include: {
+                    category:  true,
+                    muscleGroup: true,
+                    workoutPlanExercises: true
+                }
             });
 
             return exercise;

@@ -1,6 +1,6 @@
-import { Exercise } from "@prisma/client";
 import { ExercisesRepository } from "../../repositories/exercises.repository";
 import { validateNonEmptyString } from "../../lib/validators/validate-non-empty-string";
+import { ExerciseWithRelations } from "../../@types/exercises";
 
 interface CreateExerciseUseCaseRequest {
     name: string
@@ -10,7 +10,7 @@ interface CreateExerciseUseCaseRequest {
 }
 
 interface CreateExerciseUseCaseResponse {
-    exercise: Exercise
+    exercise: ExerciseWithRelations
 }
 
 export class CreateExerciseUseCase {

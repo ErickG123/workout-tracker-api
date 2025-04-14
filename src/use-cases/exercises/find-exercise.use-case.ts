@@ -1,13 +1,13 @@
-import { Exercise } from "@prisma/client";
 import { ExercisesRepository } from "../../repositories/exercises.repository";
 import { ExerciseNotFound } from "../errors/exercise-not-found";
+import { ExerciseWithRelations } from "../../@types/exercises";
 
 interface FindExerciseUseCaseResquestParams {
     id: string
 }
 
 interface FindExerciseUseCaseResponse {
-    exercise: Exercise
+    exercise: ExerciseWithRelations
 }
 
 export class FindExerciseUseCase {

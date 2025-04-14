@@ -1,7 +1,7 @@
-import { Exercise } from "@prisma/client"
 import { ExercisesRepository } from "../../repositories/exercises.repository"
 import { ExerciseNotFound } from "../errors/exercise-not-found"
 import { validateNonEmptyString } from "../../lib/validators/validate-non-empty-string"
+import { ExerciseWithRelations } from "../../@types/exercises"
 
 interface UpdateExerciseUseCaseRequestParams {
     id: string
@@ -15,7 +15,7 @@ interface UpdateExerciseUseCaseRequest {
 }
 
 interface UpdateExerciseUseCaseResponse {
-    exercise: Exercise
+    exercise: ExerciseWithRelations
 }
 
 export class UpdateExerciseUseCase {

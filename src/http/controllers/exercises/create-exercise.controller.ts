@@ -17,7 +17,13 @@ export async function createExerciseController(request: FastifyRequest, reply: F
     try {
         const { exercise } = await createExerciseUseCase.execute(body);
 
-        return reply.status(201).send(exercise);
+        const response = {
+            ...exercise,
+            category: exercise.category,
+            muscleGroup: exercise.muscleGroup
+        }
+
+        return reply.status(201).send(response);
     } catch (error) {
         return reply.status(400).send(error);
     }

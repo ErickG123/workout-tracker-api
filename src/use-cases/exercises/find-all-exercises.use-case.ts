@@ -1,8 +1,8 @@
-import { Exercise } from "@prisma/client";
 import { ExercisesRepository } from "../../repositories/exercises.repository";
+import { ExerciseWithRelations } from "../../@types/exercises";
 
 interface FindAllExercisesUseCaseResponse {
-    exercises: Exercise[]
+    exercises: ExerciseWithRelations[]
 }
 
 export class FindAllExercisesUseCase {
