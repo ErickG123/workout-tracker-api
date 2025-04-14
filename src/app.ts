@@ -8,8 +8,15 @@ import { categoriesRoutes } from "./http/controllers/categories/categories.route
 import { muscleGroupsRoutes } from "./http/controllers/muscle-groups/muscle-groups.routes";
 import { usersRoutes } from "./http/controllers/users/users.routes";
 import { exercisesRoutes } from "./http/controllers/exercises/exercises.routes";
+import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
+import { validatorCompiler, serializerCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { swaggerOptions } from "./docs/swagger-config";
 
-export const app = fastify();
+export const app = fastify().withTypeProvider<ZodTypeProvider>();
+
+app.setValidatorCompiler(validatorCompiler);
+app.setSerializerCompiler(serializerCompiler);
 
 app.register(fastifyRateLimit, {
     max: 100,
@@ -55,6 +62,12 @@ app.decorate("authenticate", async (request: FastifyRequest, reply: FastifyReply
 app.register(cors, {
     origin: true,
     credentials: true
+});
+
+app.register(fastifySwagger, swaggerOptions);
+
+app.register(fastifySwaggerUi, {
+    routePrefix: "/docs"
 });
 
 app.register(usersRoutes);
